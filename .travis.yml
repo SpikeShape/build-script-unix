@@ -1,4 +1,11 @@
+language: bash
+
 sudo: required
+
 install: true
+
+before_script:
+    - curl -L "http://downloads.sourceforge.net/shunit2/shunit2-2.0.3.tgz" | tar zx
+
 script:
-  - sh build_unix.sh
+    - bash build_unix.sh
