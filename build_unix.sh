@@ -15,17 +15,17 @@ function _setup_bash_path() {
 function _check_ruby() {
   if ! which ruby
     then
-      printf "\033[$blau+ruby not found; installing latest stable ruby version \033[0m \n";
+      printf "\033[$blau ruby not found; installing latest stable ruby version \033[0m \n";
       \curl -sSL https://get.rvm.io | bash -s stable
     else
-      printf "\033[$blau+ruby is already installed \033[0m \n";
+      printf "\033[$blau ruby is already installed \033[0m \n";
   fi
 }
 
 function _check_node() {
   if ! which node
     then
-      printf "\033[$blau+node not found \033[0m \n";
+      printf "\033[$blau node not found \033[0m \n";
       while true; do
         read -p "Do you wish to install the latest node version? If not the building process will be aborted." yn
         case $yn in
@@ -47,7 +47,7 @@ function _check_node() {
         esac
       done
     else
-      printf "\033[$blau+node is already installed \033[0m \n";
+      printf "\033[$blau node is already installed \033[0m \n";
   fi
 }
 
@@ -75,42 +75,39 @@ function _install_packages() {
     retval=$( _find_outdated_npm_packages )
 
     if [[ -z $retval ]]; then
-      printf "\033[$blau+remove outdated npm packages \033[0m \n";
+      printf "\033[$blau remove outdated npm packages \033[0m \n";
       npm remove $retval
-      printf "\033[$blau+install new npm packages \033[0m \n";
+      printf "\033[$blau install new npm packages \033[0m \n";
       npm install $retval
     else
       printf "\033[$gruen+all npm Packages up-to-date \033[0m \n";
     fi
   else
-    printf "\033[$blau+executing npm install \033[0m \n";
+    printf "\033[$blau executing npm install \033[0m \n";
     npm install
   fi
 }
 
 function _check_bundler() {
-  printf "\033[$blau+removing node_modules if present \033[0m \n";
-  [ -d 'node_modules' ] && rm -rf 'node_modules'
-
   if ! which bundle
     then
-      printf "\033[$blau+bundler not found; installing latest node version \033[0m \n";
+      printf "\033[$blau bundler not found; installing latest node version \033[0m \n";
       gem install bundler
     else
-      printf "\033[$blau+bundler is already installed \033[0m \n";
+      printf "\033[$blau bundler is already installed \033[0m \n";
   fi
 
-  printf "\033[$blau+executing bundle install \033[0m \n";
+  printf "\033[$blau executing bundle install \033[0m \n";
   bundle install
 }
 
 function _execute_grunt() {
   if [ -f "Gemfile" ]
     then
-      printf "\033[$blau+Gemfile found; executing bundle exec grunt -v \033[0m \n";
+      printf "\033[$blau Gemfile found; executing bundle exec grunt -v \033[0m \n";
       bundle exec grunt -v
     else
-      printf "\033[$blau+Gemfile not found; executing grunt -v \033[0m \n";
+      printf "\033[$blau Gemfile not found; executing grunt -v \033[0m \n";
       grunt -v
   fi
 }
