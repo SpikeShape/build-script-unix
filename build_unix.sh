@@ -18,16 +18,31 @@ function _check_ruby() {
       printf "\033[$blau ruby is already installed \033[0m \n";
     else
       printf "\033[$blau ruby not found; installing latest stable ruby version \033[0m \n";
-      \curl -sSL https://get.rvm.io | bash -s stable
+      while true; do
+        read -p "Do you wish to install the latest ruby version? If not the building process will be aborted. [y/n]" yn
+        case $yn in
+            [Yy]* )
+              gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+              \curl -sSL https://get.rvm.io | bash -s stable --ruby
+              rvm install ruby --latest
+              break;;
+            [Nn]* )
+              echo "aborting...";
+              exit;;
+            * ) echo "Please answer [y]es or [n]o.";;
+        esac
+      done
   fi
 }
 
 function _check_node() {
-  if ! which node
+  if which node
     then
+      printf "\033[$blau node is already installed \033[0m \n";
+    else
       printf "\033[$blau node not found \033[0m \n";
       while true; do
-        read -p "Do you wish to install the latest node version? If not the building process will be aborted." yn
+        read -p "Do you wish to install the latest node version? If not the building process will be aborted. [y/n]" yn
         case $yn in
             [Yy]* )
               echo 'export PATH=$HOME/local/bin:$PATH' >> ~/.bashrc
@@ -38,16 +53,15 @@ function _check_node() {
               curl http://nodejs.org/dist/node-latest.tar.gz | tar xz --strip-components=1
               ./configure --prefix=~/local
               make install
-              curl https://www.npmjs.org/install.sh | sh;
+              curl -L https://www.npmjs.org/install.sh | sh;
+              cd $MY_PATH
               break;;
             [Nn]* )
               echo "aborting...";
               exit;;
-            * ) echo "Please answer yes or no.";;
+            * ) echo "Please answer [y]es or [n]o.";;
         esac
       done
-    else
-      printf "\033[$blau node is already installed \033[0m \n";
   fi
 }
 
@@ -71,6 +85,9 @@ function _find_outdated_npm_packages() {
 }
 
 function _install_packages() {
+  npm install -g grunt
+  npm install -g grunt-cli
+
   if [[ -d 'node_modules' ]]; then
     retval=$( _find_outdated_npm_packages )
 
@@ -80,11 +97,23 @@ function _install_packages() {
       printf "\033[$blau install new npm packages \033[0m \n";
       npm install $retval
     else
-      printf "\033[$gruen+all npm Packages up-to-date \033[0m \n";
+      printf "\033[$gruen all npm Packages up-to-date \033[0m \n";
     fi
   else
     printf "\033[$blau executing npm install \033[0m \n";
     npm install
+  fi
+}
+
+function _install_packages_simple() {
+  npm install -g grunt
+  npm install -g grunt-cli
+
+  if [[ ! -d 'node_modules' ]]; then
+    printf "\033[$blau no node_modules folder; executing npm install \033[0m \n";
+    npm install
+  else
+    printf "\033[$blau node_modules folder found; skipping npm install \033[0m \n";
   fi
 }
 
@@ -121,7 +150,7 @@ printf "\033[$weis############################\nInstalling dependcies to build p
 _setup_bash_path
 # _purge_dependencies
 _check_ruby
-_check_bundler
 _check_node
+_check_bundler
 _install_packages
 _execute_grunt
