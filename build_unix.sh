@@ -13,12 +13,12 @@ function _setup_bash_path() {
 }
 
 function _check_ruby() {
-  if ! which ruby
+  if which ruby
     then
+      printf "\033[$blau ruby is already installed \033[0m \n";
+    else
       printf "\033[$blau ruby not found; installing latest stable ruby version \033[0m \n";
       \curl -sSL https://get.rvm.io | bash -s stable
-    else
-      printf "\033[$blau ruby is already installed \033[0m \n";
   fi
 }
 
@@ -89,12 +89,12 @@ function _install_packages() {
 }
 
 function _check_bundler() {
-  if ! which bundle
+  if which bundle
     then
+      printf "\033[$blau bundler is already installed \033[0m \n";
+    else
       printf "\033[$blau bundler not found; installing latest node version \033[0m \n";
       gem install bundler
-    else
-      printf "\033[$blau bundler is already installed \033[0m \n";
   fi
 
   printf "\033[$blau executing bundle install \033[0m \n";
