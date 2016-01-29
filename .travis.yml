@@ -1,1 +1,5 @@
 sudo: required
+install: true
+script:
+  - cd build-script-unix
+  - sh build-script-unix.sh
