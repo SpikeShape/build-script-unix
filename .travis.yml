@@ -5,7 +5,9 @@ sudo: required
 install: true
 
 before_script:
-    - curl -L "http://downloads.sourceforge.net/shunit2/shunit2-2.0.3.tgz" | tar zx
+  - rm -rf /usr/local/{lib/node{,/.npm,_modules},bin,share/man}/{npm*,node*,man1/node*}
+  - rvm @global do gem uninstall bundler
+  - curl -L "http://downloads.sourceforge.net/shunit2/shunit2-2.0.3.tgz" | tar zx
 
 script:
-    - bash build_unix.sh
+  - bash build_unix.sh
