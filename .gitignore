@@ -1,0 +1,14 @@
+*.bak
+*.error
+*.log
+*.sublime-*
+*.tmp
+.DS_Store
+.ftppass
+.sass-cache
+.bundles
+build
+node_modules
+documentation
+./vendor
+
