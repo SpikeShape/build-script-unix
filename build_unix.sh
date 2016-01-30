@@ -25,6 +25,10 @@ function _check_ruby() {
               gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
               \curl -sSL https://get.rvm.io | bash
               rvm install ruby --latest
+              if ! which ruby
+                printf "\033[$orange ##ruby not found although it should have been. Please try running this script again with a login shell. \033[0m \n";
+                exit;;
+              fi
               break;;
             [Nn]* )
               echo "aborting...";
