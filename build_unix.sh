@@ -27,7 +27,7 @@ function _check_ruby() {
               rvm install ruby --latest
               if ! which ruby
                 printf "\033[$orange ##ruby not found although it should have been. Please try running this script again with a login shell. \033[0m \n";
-                exit;;
+                exit
               fi
               break;;
             [Nn]* )
@@ -61,7 +61,7 @@ function _check_node() {
               cd $MY_PATH
               if ! which node
                 printf "\033[$orange ##node not found although it should have been. Please restart you shell session to apply the recent changes and run this script again. \033[0m \n";
-                exit;;
+                exit
               fi
               break;;
             [Nn]* )
@@ -149,14 +149,8 @@ function _execute_grunt() {
   fi
 }
 
-function _purge_dependencies() {
-  sudo rm -rf /usr/local/{lib/node{,/.npm,_modules},bin,share/man}/{npm*,node*,man1/node*}
-  gem uninstall bundler
-}
-
 printf "\033[$weis############################\nInstalling dependcies to build projects...\n############################ \033[0m \n";
 _setup_bash_path
-# _purge_dependencies
 _check_ruby
 _check_node
 _check_bundler
