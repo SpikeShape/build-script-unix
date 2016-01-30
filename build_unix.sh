@@ -26,8 +26,9 @@ function _check_ruby() {
               \curl -sSL https://get.rvm.io | bash
               rvm install ruby --latest
               if ! which ruby
-                printf "\033[$orange ##ruby not found although it should have been. Please try running this script again with a login shell. \033[0m \n";
-                exit 1
+                then
+                  printf "\033[$orange ##ruby not found although it should have been. Please try running this script again with a login shell. \033[0m \n";
+                  exit
               fi
               break;;
             [Nn]* )
@@ -60,8 +61,9 @@ function _check_node() {
               curl -L https://www.npmjs.org/install.sh | sh;
               cd $MY_PATH
               if ! which node
-                printf "\033[$orange ##node not found although it should have been. Please restart you shell session to apply the recent changes and run this script again. \033[0m \n";
-                exit 1
+                then
+                  printf "\033[$orange ##node not found although it should have been. Please restart you shell session to apply the recent changes and run this script again. \033[0m \n";
+                  exit
               fi
               break;;
             [Nn]* )
