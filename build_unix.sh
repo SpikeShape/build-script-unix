@@ -155,5 +155,5 @@ _setup_bash_path
 _check_ruby
 _check_node
 _check_bundler
-_install_packages
+_install_packages_simple
 _execute_grunt
