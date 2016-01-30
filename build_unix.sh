@@ -9,7 +9,7 @@ function _setup_bash_path() {
   MY_PATH="`dirname \"$0\"`"
   MY_PATH="`( cd \"$MY_PATH\" && pwd )`"
   cd $MY_PATH
-  printf "\033[$weischange working directory to $(pwd) \033[0m \n\n";
+  printf "\033[$weis change working directory to $(pwd) \033[0m \n\n";
 }
 
 function _check_ruby() {
