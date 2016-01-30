@@ -22,6 +22,7 @@
     "grunt-replace": "^0.8",
     "grunt-scss-lint": "^0.3",
     "grunt-sync": "0.2",
-    "jshint-stylish": "^1"
+    "jshint-stylish": "^1",
+    "vinyl-fs": "2.2.0"
   }
 }
