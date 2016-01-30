@@ -24,11 +24,6 @@ function _check_ruby() {
             [Yy]* )
               gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
               \curl -sSL https://get.rvm.io | bash -s stable --ruby
-              if ! which ruby
-                then
-                  printf "\033[$orange ##ruby not found although it should have been. Please try running this script again with a login shell. \033[0m \n";
-                  exit
-              fi
               break;;
             [Nn]* )
               echo "aborting..."
@@ -59,11 +54,6 @@ function _check_node() {
               make install
               curl -L https://www.npmjs.org/install.sh | sh;
               cd $MY_PATH
-              if ! which node
-                then
-                  printf "\033[$orange ##node not found although it should have been. Please restart you shell session to apply the recent changes and run this script again. \033[0m \n";
-                  exit
-              fi
               break;;
             [Nn]* )
               echo "aborting..."
@@ -71,6 +61,28 @@ function _check_node() {
             * ) echo "Please answer [y]es or [n]o.";;
         esac
       done
+  fi
+}
+
+function _post_install_check() {
+  result_okay = true
+  result_message = ''
+  if ! which ruby
+    then
+      result_check = false
+      result_message += '##ruby not found although it should have been. Please try running this script again with a login shell.\n'
+      exit
+  fi
+
+  if ! which node
+    then
+      result_check = false
+      result_message += '##node not found although it should have been. Please restart you shell session to apply the recent changes and run this script again.\n'
+      exit
+  fi
+
+  if ! result_okay
+    printf "\033[$orange" + result_message +  "\033[0m \n"
   fi
 }
 
@@ -154,6 +166,7 @@ printf "\033[$weis############################\nInstalling dependcies to build p
 _setup_bash_path
 _check_ruby
 _check_node
+_post_install_check
 _check_bundler
 _install_packages_simple
 _execute_grunt
