@@ -80,7 +80,8 @@ function _post_install_check() {
   fi
 
   if ! result_okay
-    printf "\033[$orange" + result_message +  "\033[0m \n"
+    then
+      printf "\033[$orange" + result_message +  "\033[0m \n"
   fi
 }
 
