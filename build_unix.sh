@@ -9,7 +9,7 @@ function _setup_bash_path() {
   MY_PATH="`dirname \"$0\"`"
   MY_PATH="`( cd \"$MY_PATH\" && pwd )`"
   cd $MY_PATH
-  printf "\033[$weis+change working directory to $(pwd) \033[0m \n\n";
+  printf "\033[$weischange working directory to $(pwd) \033[0m \n\n";
 }
 
 function _check_ruby() {
@@ -23,7 +23,7 @@ function _check_ruby() {
         case $yn in
             [Yy]* )
               gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-              \curl -sSL https://get.rvm.io | bash -s stable --ruby
+              \curl -sSL https://get.rvm.io | bash
               rvm install ruby --latest
               break;;
             [Nn]* )
@@ -55,6 +55,10 @@ function _check_node() {
               make install
               curl -L https://www.npmjs.org/install.sh | sh;
               cd $MY_PATH
+              if ! which node
+                printf "\033[$orange ##node not found although it should have been. Please restart you shell session to apply the recent changes and run this script again. \033[0m \n";
+                exit;;
+              fi
               break;;
             [Nn]* )
               echo "aborting...";
