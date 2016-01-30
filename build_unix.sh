@@ -27,11 +27,11 @@ function _check_ruby() {
               rvm install ruby --latest
               if ! which ruby
                 printf "\033[$orange ##ruby not found although it should have been. Please try running this script again with a login shell. \033[0m \n";
-                exit
+                exit 1
               fi
               break;;
             [Nn]* )
-              echo "aborting...";
+              echo "aborting..."
               exit;;
             * ) echo "Please answer [y]es or [n]o.";;
         esac
@@ -61,11 +61,11 @@ function _check_node() {
               cd $MY_PATH
               if ! which node
                 printf "\033[$orange ##node not found although it should have been. Please restart you shell session to apply the recent changes and run this script again. \033[0m \n";
-                exit
+                exit 1
               fi
               break;;
             [Nn]* )
-              echo "aborting...";
+              echo "aborting..."
               exit;;
             * ) echo "Please answer [y]es or [n]o.";;
         esac
