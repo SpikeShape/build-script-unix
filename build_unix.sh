@@ -69,14 +69,14 @@ function _post_install_check() {
   result_message=''
   if ! which ruby
     then
-      $result_check=false
-      $result_message+='##ruby not found although it should have been. Please try running this script again with a login shell.\n'
+      result_check=false
+      result_message+='##ruby not found although it should have been. Please try running this script again with a login shell.\n'
   fi
 
   if ! which node
     then
-      $result_check=false
-      $result_message+='##node not found although it should have been. Please restart you shell session to apply the recent changes and run this script again.\n'
+      result_check=false
+      result_message+='##node not found although it should have been. Please restart you shell session to apply the recent changes and run this script again.\n'
   fi
 
   if ! $result_okay
