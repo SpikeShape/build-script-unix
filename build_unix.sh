@@ -65,23 +65,23 @@ function _check_node() {
 }
 
 function _post_install_check() {
-  result_okay = true
-  result_message = ''
+  result_okay=true
+  result_message=''
   if ! which ruby
     then
-      $result_check = false
-      $result_message += '##ruby not found although it should have been. Please try running this script again with a login shell.\n'
+      $result_check=false
+      $result_message+='##ruby not found although it should have been. Please try running this script again with a login shell.\n'
   fi
 
   if ! which node
     then
-      $result_check = false
-      $result_message += '##node not found although it should have been. Please restart you shell session to apply the recent changes and run this script again.\n'
+      $result_check=false
+      $result_message+='##node not found although it should have been. Please restart you shell session to apply the recent changes and run this script again.\n'
   fi
 
   if ! $result_okay
     then
-      printf "\033[$orange" + $result_message +  "\033[0m \n"
+      printf "\033[$orange"+$result_message+"\033[0m \n"
   fi
 }
 
@@ -105,7 +105,6 @@ function _find_outdated_npm_packages() {
 }
 
 function _install_packages() {
-  # npm install -g grunt
   npm install -g grunt-cli
 
   if [[ -d 'node_modules' ]]; then
@@ -126,7 +125,6 @@ function _install_packages() {
 }
 
 function _install_packages_simple() {
-  npm install -g grunt
   npm install -g grunt-cli
 
   if [[ ! -d 'node_modules' ]]; then
