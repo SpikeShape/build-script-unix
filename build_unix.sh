@@ -105,7 +105,7 @@ function _find_outdated_npm_packages() {
 }
 
 function _install_packages() {
-  npm install -g grunt
+  # npm install -g grunt
   npm install -g grunt-cli
 
   if [[ -d 'node_modules' ]]; then
