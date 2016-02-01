@@ -65,22 +65,21 @@ function _check_node() {
 }
 
 function _post_install_check() {
-  result_okay=true
-  result_message=''
   if ! which ruby
     then
-      result_check=false
+      check_fails=true
       printf "\033[$orange ##ruby not found although it should have been. Please try running this script again with a login shell.\n \033[0m \n"
   fi
 
   if ! which node
     then
-      result_check=false
+      check_fails=true
       printf "\033[$orange ##node not found although it should have been. Please restart you shell session to apply the recent changes and run this script again.\n \033[0m \n"
   fi
 
-  if [ $result_okay = false ]; then
-    exit
+  if $check_fails
+    then
+      exit
   fi
 }
 
