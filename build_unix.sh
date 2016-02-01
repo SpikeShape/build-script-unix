@@ -77,7 +77,7 @@ function _post_install_check() {
       printf "\033[$orange ##node not found although it should have been. Please restart you shell session to apply the recent changes and run this script again.\n \033[0m \n"
   fi
 
-  if [ -z ${check_fails+x} ]
+  if [[ ${check_fails+x} ]];
     then
       exit
   fi
