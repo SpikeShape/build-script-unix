@@ -83,45 +83,6 @@ function _post_install_check() {
   fi
 }
 
-function _find_outdated_npm_packages() {
-  npm_outdated=($(npm outdated --parseable))
-  npm_outdated_array_length=${#npm_outdated[@]}
-  return_string=""
-
-  for (( i=0; i<${npm_outdated_array_length}; i++ ));
-  do
-    npm_outdated_name=$( echo ${npm_outdated[$i]} | cut -d "@" -f 2 | cut -d ":" -f 2)
-    npm_outdated_current=$( echo ${npm_outdated[$i]} | cut -d "@" -f 2 | cut -d ":" -f 1)
-    npm_outdated_wanted=$( echo ${npm_outdated[$i]} | cut -d "@" -f 3 | cut -d ":" -f 1)
-    npm_outdated_latest=$( echo ${npm_outdated[$i]} | cut -d "@" -f 4)
-
-    if [ $npm_outdated_current == $npm_outdated_wanted ]; then
-      return_string="$return_string $npm_outdated_name"
-    fi
-  done
-  echo "$return_string"
-}
-
-function _install_packages() {
-  npm install -g grunt-cli
-
-  if [[ -d 'node_modules' ]]; then
-    retval=$( _find_outdated_npm_packages )
-
-    if [[ -z $retval ]]; then
-      printf "\033[$blau remove outdated npm packages \033[0m \n";
-      npm remove $retval
-      printf "\033[$blau install new npm packages \033[0m \n";
-      npm install $retval
-    else
-      printf "\033[$gruen all npm Packages up-to-date \033[0m \n";
-    fi
-  else
-    printf "\033[$blau executing npm install \033[0m \n";
-    npm install
-  fi
-}
-
 function _install_packages_simple() {
   npm install -g grunt-cli
 
