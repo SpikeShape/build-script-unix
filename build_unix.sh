@@ -84,7 +84,7 @@ function _post_install_check() {
 }
 
 function _install_packages_simple() {
-  npm install -g grunt-cli
+  sudo npm install -g grunt-cli
 
   if [[ ! -d 'node_modules' ]]; then
     printf "\033[$blau no node_modules folder; executing npm install \033[0m \n";
